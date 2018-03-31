@@ -1,18 +1,18 @@
 <?xml version="1.0" ?>
 <robot name="create">
-  <joint name="create__left_wheel" type="fixed">
+  <joint name="create_left_wheel_hinge" type="revolute">
     <parent link="create__base"/>
     <child link="create__left_wheel"/>
     <origin rpy="0  0  0" xyz="0     0.13   0.032"/>
     <axis xyz="0  1  0"/>
-    <limit effort="0" lower="0" upper="0" velocity="0"/>
+    <limit effort="100" lower="0" upper="100" velocity="10"/>
   </joint>
-  <joint name="create__right_wheel" type="fixed">
+  <joint name="create_right_wheel_hinge" type="revolute">
     <parent link="create__base"/>
     <child link="create__right_wheel"/>
     <origin rpy="0  0  0" xyz="0    -0.13   0.032"/>
     <axis xyz="0  1  0"/>
-    <limit effort="0" lower="0" upper="0" velocity="0"/>
+    <limit effort="100" lower="0" upper="100" velocity="10"/>
   </joint>
   <link name="create__base">
     <inertial>
@@ -108,5 +108,30 @@
     </plugin>
   </gazebo>
 <!--IMU -->
+<!-- differential drive-->
+<gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <legacyMode>false</legacyMode>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>100.0</updateRate>
+      <leftJoint>create_left_wheel_hinge</leftJoint>
+      <rightJoint>create_right_wheel_hinge</rightJoint>
+      <wheelSeparation>0.4</wheelSeparation>
+      <wheelDiameter>0.2</wheelDiameter>
+      <torque>10</torque>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>robot_footprint</robotBaseFrame>
+      <publishWheelTF>true</publishWheelTF>
+      <wheelAcceleration>1</wheelAcceleration>
+     
+      <publishTf>1</publishTf>
+      <odometrySource>encoder</odometrySource>
+    </plugin>
+  </gazebo>
+
+<!-- differential drive-->
+<!--Depth Camera -->
 
 </robot>
