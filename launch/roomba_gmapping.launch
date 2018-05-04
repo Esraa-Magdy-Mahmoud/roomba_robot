@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+
+<node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen" />
+
+<!--launch rviz-->
+<node pkg="rviz" type="rviz" name="rviz" args="-d $(find roomba_robot)/launch/gmapping_config.rviz" />
+
+
+
+</launch>
